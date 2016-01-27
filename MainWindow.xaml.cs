@@ -53,7 +53,7 @@ namespace WpfDemo
         /// </summary>
         /// <param name="gs"></param>
         /// <param name="tt"></param>
-        // TODO: MainWindow.ShowActualWidthToolTip seems to tricky for reusability, maybe one find a more scaleable solution
+        // TODO: MainWindow.ShowActualWidthToolTip seems to be to tricky for reusability, maybe one find a more scaleable solution
         private void ShowActualWidthToolTip(GridSplitter gs, ToolTip tt)
         {
             // If the GridSplitter isn't positioned correctly in a seperate column between two other columns, drop functionality

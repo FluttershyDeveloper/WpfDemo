@@ -1,0 +1,77 @@
+﻿<Window x:Class="WpfDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WPF Demonstration" 
+        MinHeight="480" 
+        MinWidth="640">
+    <!-- TODO: Move Grid Margin into Style -->
+    <Grid x:Name="mainGrid" Margin="3,3,3,3" ShowGridLines="False" UseLayoutRounding="True">
+        
+        <!-- Row definition for 3 rows -->
+        <Grid.RowDefinitions>
+            <!-- Row0 header -->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <!-- Row1 content -->
+            <RowDefinition Height="*"></RowDefinition>
+            <!-- Row2 footer -->
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <!-- Column definition for 5 colums -->
+        <Grid.ColumnDefinitions>
+            <!-- Col0 left panel -->
+            <ColumnDefinition Width="*" MinWidth="100" MaxWidth="300"></ColumnDefinition>
+            <!-- Col1 for GridSplitter left  -->
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <!-- Col2 center panel -->
+            <ColumnDefinition Width="*" MinWidth="100"></ColumnDefinition>
+            <!-- Col3 for GridSplitter right -->
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <!-- Col4 right panel -->
+            <ColumnDefinition Width="*" MinWidth="100" MaxWidth="300"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Grid content Row0 header -->
+        <!-- TODO: Move Button Margin into Style -->
+        <Button Grid.Column="0" Grid.Row="0" Margin="0,0,0,3" HorizontalAlignment="Left">Button 1</Button>
+        <Button Grid.Column="2" Grid.Row="0" Margin="0,0,0,3" HorizontalAlignment="Center">Button 2</Button>
+        <Button Grid.Column="4" Grid.Row="0" Margin="0,0,0,3" HorizontalAlignment="Right">Button 3</Button>
+        
+        <!-- Grid content Row2 content -->
+        <!-- Grid content Col0 -->
+        <StackPanel Grid.Row="1" Grid.Column="0" AllowDrop="True" DragEnter="Panel_DragEnter" Drop="Panel_Drop">
+            <StackPanel.Background>
+                <SolidColorBrush Color="LightGreen"/>
+            </StackPanel.Background>
+            <Label HorizontalAlignment="Left">Stack Panel</Label>
+            <Button x:Name="btnDragDrop" PreviewMouseDown="btnDragDrop_PreviewMouseDown">Drag me to an other container</Button>
+        </StackPanel>
+        <DockPanel Grid.Row="1" Grid.Column="2" AllowDrop="True" DragEnter="Panel_DragEnter" Drop="Panel_Drop">
+            <DockPanel.Background>
+                <SolidColorBrush Color="LightBlue"/>
+            </DockPanel.Background>
+            <Label>Dock Panel</Label>
+        </DockPanel>
+        <WrapPanel Grid.Row="1" Grid.Column="4" AllowDrop="True" DragEnter="Panel_DragEnter" Drop="Panel_Drop">
+            <WrapPanel.Background>
+                <SolidColorBrush Color="LightPink"/>
+            </WrapPanel.Background>
+            <Label>Wrap Panel</Label>
+        </WrapPanel>
+        <!-- Grid content Row4 footer -->
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5">
+                <Label x:Name="lbl" HorizontalContentAlignment="Center" Margin="0,3,0,0">
+                    <Label.Background>
+                        <SolidColorBrush Color="LightGray"/>
+                    </Label.Background>
+                    <Label.Content>&#8656; Label footer &#8658;</Label.Content>
+                </Label>
+            </StackPanel>
+        <!-- GridSplitter for Col1 left  -->
+        <GridSplitter x:Name="myGsLeft" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3" DragDelta="GridSplitter_DragDelta" DragCompleted="GridSplitter_DragCompleted"/>
+ 
+
+        <!-- GridSplitter for Col3 right -->
+        <GridSplitter x:Name="myGsRight" Grid.Column="3" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="3" DragDelta="GridSplitter_DragDelta" DragCompleted="GridSplitter_DragCompleted"/>
+    </Grid>
+</Window>

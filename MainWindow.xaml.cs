@@ -25,6 +25,11 @@ namespace WpfDemo
         /// Provides a reusable ToolTip object used by GridSplitter_DragDelta and GridSplitter_DragComplete
         /// </summary>
         private ToolTip flyingToolTip = new ToolTip();
+        /// <summary>
+        /// Backing fields for drag and drop a Button from one panel to another
+        /// </summary>
+        Button btnTemp = null;
+        Panel pnlTemp = null;
         
         public MainWindow()
         {
@@ -88,11 +93,10 @@ namespace WpfDemo
         private void btnDragDrop_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Button btn = sender as Button;
-
+            btnTemp = btn;
             // TODO: This should be done on another place, but where?
             Panel parent = btn.Parent as Panel;
-            parent.Children.Remove(btn);
-            
+            pnlTemp = parent;
             DragDrop.DoDragDrop(btn, btn, DragDropEffects.Move);
         }
         /// <summary>
@@ -105,14 +109,20 @@ namespace WpfDemo
             e.Effects = DragDropEffects.Move;
         }
         /// <summary>
-        /// 
+        /// Drop UIElement to Panel. Removes it from former panel and adds it to new location.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Panel_Drop(object sender, DragEventArgs e)
         {
-           Panel panel = sender as Panel;
-           panel.Children.Add(((UIElement)e.Data.GetData(typeof(Button))));
+            Panel panel = sender as Panel;
+            if (btnTemp != null && pnlTemp != null)
+            {
+                pnlTemp.Children.Remove(btnTemp);
+                panel.Children.Add(((UIElement)e.Data.GetData(typeof(Button))));
+                btnTemp = null;
+                pnlTemp = null;
+            }
         }
     }
 }
